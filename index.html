@@ -1168,7 +1168,18 @@ function limparAnaliseEmail() {
   document.getElementById("resumo-email").innerHTML = "";
 }
 
-
+// Adicione este bloco no final do seu script no index.html
+// Ele intercepta qualquer erro de imagem no site e substitui por um link estável antes de gerar o erro no console.
+document.addEventListener('error', function(e) {
+    if (e.target.tagName.toLowerCase() === 'img') {
+        const url = e.target.src;
+        if (url.includes('via.placeholder.com') || url.includes('300x150')) {
+            e.target.src = 'https://placehold.co/300x150?text=WebPulse';
+        } else if (url.includes('bcb.gov.br')) {
+            e.target.src = 'https://www.google.com/s2/favicons?domain=bcb.gov.br&sz=16';
+        }
+    }
+}, true);
 
 </script>
 </body>
