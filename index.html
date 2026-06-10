@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPulse</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<body>
+    <header>
+      <h1>WebPulse</h1>
+        <nav>
+            <ul>
+                <li><a href="#Pagina Inicial" onclick="voltarPaginaInicial()">Página inicial</a></li>
+                <li><a href="#status-rede">Status da Rede</a></li>
+                <li><a href="#analise-email">Análise de E-mails</a></li>               
+                <li><a href="#noticias">Notícias</a></li>                
+                <li><a href="#sobre" onclick="mostrarSobreNos()">Sobre Nós</a></li>
+                <li><a href="#">Ajuda</a></li>
+            </ul>
+        </nav>
+        
+        </div>
+        <button id="toggle-theme" class="theme-btn" title="Alternar Tema">🌙</button>
+    </header>
+    <section class="link-monitor">
+      <div class="container">
+        <h2>Monitorar Link Específico</h2>
+
+        <div class="link-input">
+          <input type="url" id="link-url" placeholder="Insira o URL do link">
+          <button onclick="monitorLink()">Monitorar</button>
+          <button onclick="resetarLinkMonitor()" class="btn-reset">⟳</button>
+        </div>
+
+        <!--  LOADING-->
+        
+        <div id="link-loading" class="hidden">
+          <div class="loader"></div>
+          <p>Carregando informações...</p>
+        </div>
+        <div id="link-loading" class="hidden">🔄 Carregando informações...</div>
+
+        <!-- RESULTADO-->
+        <div id="link-status" class="hidden">     
+          <h3>Status do Link:</h3>
+          <div id="resultado-analise"></div>
+          <div id="avaliacao-final"></div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="noticias-section" class="hidden">
+      <button onclick="voltarPaginaInicial()" class="btn-voltar">← Voltar</button>
+      <h2>Notícias de Redes e Tecnologias</h2>      
+      <div id="noticias-container" class="noticias-grid">
+        <!--Aqui serão adicionadas dinamicamente as noticias-->
+      </div>
+    </section>
+
+    <main>
+      
+        <section class="website-list">
+            <h2>Sites Mais Usados</h2>
+            <div class="website-grid">
+                <div class="website-card" data-url="https://www.google.com">
+      <div class="favicon">
+        <img src="https://www.google.com/s2/favicons?domain=google.com.br" />
+      </div>
+      <div class="details">
+          <h3>Google</h3>
+          <canvas id="chart-google" width="200" height="100"></canvas>
+          <p class="status online" id="status-google">Online</p>
+          <div class="security">
+              <span class="cert-info" title="Conexão HTTPS">🔒</span>
+              <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+              <span class="latencia-info">– ms</span> <!-- Aqui aparecerá "68 ms" -->
+          </div>
+      </div>
+  </div>
+
+                <div class="website-card" data-url="https://www.youtube.com">
+                    <div class="favicon">
+                      <img src="https://www.google.com/s2/favicons?domain=youtube.com.br" />
+                    </div>
+                    <div class="details">
+                        <h3>YouTube</h3>
+                        <canvas id="chart-youtube" width="200" height="100"></canvas>
+                        <p class="status online" id="status-youtube">Online</p>
+          <div class="security">
+            <span class="cert-info" title="Conexão HTTPS">🔒</span>
+            <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+            <span class="latencia-info">– ms</span> 
+          </div>
+      </div>
+  </div>
+
+                <div class="website-card" data-url="https://web.whatsapp.com/">
+                    <div class="favicon">
+                      <img src="https://www.google.com/s2/favicons?domain=https://web.whatsapp.com/" />  
+                    </div>
+                    <div class="details">
+                        <h3>Whatsapp</h3>
+                        <canvas id="chart-whatsapp" width="200" height="100"></canvas>
+                        <p class="status online" id="status-whatsapp">Online</p>
+          <div class="security">
+            <span class="cert-info" title="Conexão HTTPS">🔒</span>
+            <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+            <span class="latencia-info">– ms</span> 
+          </div>
+      </div>
+  </div>
+
+        <div class="website-card" data-url="https://facebook.com/">
+        <div class="favicon">
+          <img src="https://www.google.com/s2/favicons?domain=facebook.com" />  
+        </div>
+        <div class="details">
+        <h3>Facebook</h3>
+        <canvas id="chart-facebook" width="200" height="100"></canvas>
+        <p class="status online" id="status-facebook">Online</p>
+        <div class="security">
+        <span class="cert-info" title="Conexão HTTPS">🔒</span>
+        <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+        <span class="latencia-info">– ms</span> 
+    </div>
+</div>
+</div>
+
+<div class="website-card" data-url="https://instagram.com/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=instagram.com" />  
+  </div>
+  <div class="details">
+      <h3>Instagram</h3>
+      <canvas id="chart-instagram" width="200" height="100"></canvas>
+      <p class="status online" id="status-instagram">Online</p>
+<div class="security">
+<span class="cert-info" title="Conexão HTTPS">🔒</span>
+<span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+<span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://itau.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=itau.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Itau</h3>
+  <canvas id="chart-itau" width="200" height="100"></canvas>
+  <p class="status online" id="status-itau">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://nubank.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=nubank.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Nubank</h3>
+  <canvas id="chart-nubank" width="200" height="100"></canvas>
+  <p class="status online" id="status-nubank">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://vivo.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=vivo.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Vivo</h3>
+  <canvas id="chart-vivo" width="200" height="100"></canvas>
+  <p class="status online" id="status-vivo">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://www.claro.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=claro.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Claro</h3>
+  <canvas id="chart-claro" width="200" height="100"></canvas>
+  <p class="status online" id="status-claro">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://caixa.gov.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=caixa.gov.br" />  
+  </div>
+  <div class="details">
+  <h3>Caixa</h3>
+  <canvas id="chart-caixa" width="200" height="100"></canvas>
+  <p class="status online" id="status-caixa">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://amazon.com.br">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=www.amazon.com.br" />  
+  </div>
+  <div class="details">
+  <h3>amazon</h3>
+  <canvas id="chart-amazon" width="200" height="100"></canvas>
+  <p class="status online" id="status-amazon">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://bb.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=bb.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Banco do Brasil</h3>
+  <canvas id="chart-bancodobrasil" width="200" height="100"></canvas>
+  <p class="status online" id="status-bancodobrasil">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://tim.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=tim.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Tim</h3>
+  <canvas id="chart-tim" width="200" height="100"></canvas>
+  <p class="status online" id="status-tim">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://correios.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=correios.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Correios</h3>
+  <canvas id="chart-correios" width="200" height="100"></canvas>
+  <p class="status online" id="status-correios">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://santander.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=santander.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Santander</h3>
+  <canvas id="chart-santander" width="200" height="100"></canvas>
+  <p class="status online" id="status-santander">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://bcb.gov.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=bcb.gov.br&sz=16" />  
+  </div>
+  <div class="details">
+  <h3>Banco Central do Brasil</h3>
+  <canvas id="chart-bancocentraldobrasil" width="200" height="100"></canvas>
+  <p class="status online" id="status-bancocentraldobrasil">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://mercadolivre.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=mercadolivre.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Mercado Livre</h3>
+  <canvas id="chart-mercadolivre" width="200" height="100"></canvas>
+  <p class="status online" id="status-mercadolivre">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://uol.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=uol.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Uol</h3>
+  <canvas id="chart-uol" width="200" height="100"></canvas>
+  <p class="status online" id="status-uol">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://bradesco.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=bradesco.com.br" />  
+  </div>
+  <div class="details">
+  <h3>Bradesco</h3>
+  <canvas id="chart-bradesco" width="200" height="100"></canvas>
+  <p class="status online" id="status-bradesco">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+<div class="website-card" data-url="https://picpay.com.br/">
+  <div class="favicon">
+    <img src="https://www.google.com/s2/favicons?domain=picpay.com.br" />  
+  </div>
+  <div class="details">
+  <h3>PicPay</h3>
+  <canvas id="chart-picpay" width="200" height="100"></canvas>
+  <p class="status online" id="status-picpay">Online</p>
+  <div class="security">
+  <span class="cert-info" title="Conexão HTTPS">🔒</span>
+  <span class="site-lock fa-solid fa-lock green" title="Site Seguro"></span>
+  <span class="latencia-info">– ms</span> 
+</div>
+</div>
+</div>
+</div> <!-- Último .website-card -->
+</section> <!-- fecha a section dos cards -->
+</main> <!-- FECHA O MAIN! -->                
+
+<section id="status-rede" class="hidden">
+  <button class="btn-voltar" onclick="voltarPaginaInicial()">← Voltar</button>
+  <h2>Dashboard de Monitoramento</h2>
+
+  <div class="filtros-heatmap">
+    <label>Categoria:
+      <select id="filtro-categoria" onchange="filtrarHeatmap()">
+        <option value="">Todas</option>
+        <option value="Bancos">Bancos</option>
+        <option value="Redes Sociais">Redes Sociais</option>
+        <option value="Streaming">Streaming</option>
+        <option value="Governamentais">Governamentais</option>
+        <option value="Provedores">Provedores</option>
+      </select>
+    </label>
+  
+    <label>Status:
+      <select id="filtro-status" onchange="filtrarHeatmap()">
+        <option value="">Todos</option>
+        <option value="online">Online</option>
+        <option value="estável">Estável</option>
+        <option value="instável">Instável</option>
+        <option value="lento">Lento</option>
+        <option value="offline">Offline</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="dashboard-container">
+    <div class="card-grafico">
+      <h3>Histórico de Uptime</h3>
+      <canvas id="grafico-uptime" height="120"></canvas>
+    </div>
+    <div class="card-heatmap">
+      <h3>Heatmap de Disponibilidade (últimas 24h)</h3>
+    
+      <div class="heatmap-legenda">
+        <span class="legenda-item"><span class="block-mini online"></span> Online</span>
+        <span class="legenda-item"><span class="block-mini estável"></span> Estável</span>
+        <span class="legenda-item"><span class="block-mini instável"></span> Instável</span>
+        <span class="legenda-item"><span class="block-mini lento"></span> Lento</span>
+        <span class="legenda-item"><span class="block-mini offline"></span> Offline</span>
+      </div>
+    
+      <div id="heatmap-container" class="heatmap-grid-novo"></div>
+    </div>
+    <div class="card-alertas">
+      <h3>Alertas Recentes</h3>
+      <ul id="alertas-recentes"></ul>
+    </div>
+    
+  </div>
+</section>
+
+<section id="noticias-section" class="hidden">
+  <button class="btn-voltar" onclick="voltarPaginaInicial()">← Voltar</button>
+  <h2>Notícias de Tecnologia</h2>
+  <div id="noticias-container" class="noticias-grid"></div>
+</section>
+
+<section id="sobre-nos" class="hidden">
+  <section class="sobre-hero centralizado">
+    <div class="container-hero">
+      <video autoplay loop muted playsinline width="80" height="80" style="border-radius: 12px;">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/6569/6569122.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+      </video>
+      <h2>WebPulse: monitoramento confiável, em tempo real</h2>
+      <p>
+        O <strong>WebPulse</strong> é seu radar digital. Quando um site não carrega, mostramos se o problema está com ele   ou com a sua conexão.<br>
+        Monitoramos os principais serviços da internet 24/7, com <strong>gráficos em tempo real</strong>, <strong>análises técnicas</strong> e <strong>alertas inteligentes</strong> para decisões rápidas e assertivas.
+      </p>
+    </div>
+  </section>
+
+  <section class="sobre-funcionamento">
+    <h3><i class="fa-solid fa-sitemap"></i> Como Funciona</h3>
+    <div class="funcionamento-cards">
+      <div class="card-funciona">
+        <div class="icone-wrapper"><i class="fa-solid fa-globe"></i></div>
+        <p>Monitoramento constante de sites populares e links específicos</p>
+      </div>
+      <div class="card-funciona">
+        <div class="icone-wrapper"><i class="fa-solid fa-chart-line"></i></div>
+        <p>Análise técnica de tempo de resposta, certificados e reputação</p>
+      </div>
+      <div class="card-funciona">
+        <div class="icone-wrapper"><i class="fa-solid fa-shield-halved"></i></div>
+        <p>Checagem de ameaças e reputação via fontes confiáveis como VirusTotal</p>
+      </div>
+      <div class="card-funciona">
+        <div class="icone-wrapper"><i class="fa-solid fa-database"></i></div>
+        <p>Histórico completo de incidentes e disponibilidade com gráficos e alertas</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sobre-criador centralizado">
+    <h3><i class="fa-solid fa-user-gear"></i> Quem está por trás</h3>
+    <p><strong>Igor Coutinho</strong> é T.I. com experiência em redes, infraestrutura e monitoramento. <br>
+      Criou o WebPulse para transformar dados técnicos em clareza operacional, sem enrolação.
+    </p>
+    <div class="sobre-links">
+      <a href="https://www.linkedin.com/in/igorhcoutinho/" target="_blank" class="linkedin-link">🔗 Ver perfil no LinkedIn</a>
+      <button onclick="window.location.href='mailto:igormanutecoes@gmail.com'">Fale comigo</button>
+    </div>
+  </section>
+</section>
+
+<section id="analise-email" class="link-monitor hidden">
+  <div class="container">
+    <h2>Análise de E-mails</h2>
+
+    <div class="email-analyzer-form">
+      <label for="remetente-email">Endereço de e-mail do remetente:</label>
+      <input type="email" id="remetente-email" placeholder="exemplo@dominio.com">
+
+      <label for="conteudo-email">Conteúdo do e-mail:</label>
+      <textarea id="conteudo-email" rows="8" placeholder="Cole aqui o conteúdo do e-mail..."></textarea>
+
+      <button onclick="analisarEmail()" class="btn-acao">Analisar</button>
+      <button onclick="limparAnaliseEmail()" class="btn-acao btn-secundario">⟳ Limpar</button>
+    </div>
+
+    <div id="loading-email" class="hidden">🔄 Analisando e-mail...</div>
+
+    <div id="resultado-email" class="hidden">
+      <h3>Resultado da Análise:</h3>
+      <div id="resultado-itens-email"></div>
+      <div id="resumo-email"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer class="main-footer">
+  <div class="footer-info">
+    <div class="footer-card">
+      <span class="icon lock"></span>
+      <p><strong>Resistência</strong> Backup é essencial para resiliência digital.</p>
+    </div>
+    <div class="footer-card">
+      <span class="icon shield"></span>
+      <p><strong>Segurança</strong> Atualize o antivírus com frequência.</p>
+    </div>
+    <div class="footer-card">
+      <span class="icon warning"></span>
+      <p><strong>Insegurança</strong> Evite sites sem HTTPS.</p>
+    </div>
+    <div class="footer-card">
+      <span class="icon refresh"></span>
+      <p><strong>Status Rápido</strong> Monitore DNS e Ping em tempo real.</p>
+    </div>
+    <div class="footer-card">
+      <span class="icon info"></span>
+      <p><strong>Warmate</strong> WebPulse mantém sua rede em alerta.</p>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p>&copy; 2025 Monitor de Sites e Links</p>
+  </div>
+</footer>
+
+
+    <script>
+      
+
+
+const charts = {};
+const siteList = [
+  "whatsapp", "facebook", "google", "youtube", "instagram", "itau",
+  "nubank", "vivo", "claro", "caixa", "amazon", "bancodobrasil", "tim",
+  "correios", "santander", "bancocentraldobrasil", "mercadolivre",
+  "uol", "bradesco", "picpay"
+];
+
+// Cria gráficos inicialmente com estilo de linha
+siteList.forEach(site => {
+  const canvas = document.getElementById(`chart-${site}`);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  charts[site] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: site,
+        data: [],
+        borderColor: 'gray',
+        borderWidth: 2,
+        fill: false,
+        pointRadius: 0,
+        tension: 0.4
+      }]
+    },
+    options: {
+  animation: false,
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    x: { display: false, grid: { display: false } },
+    y: { display: false, grid: { display: false } }
+  },
+  plugins: {
+    legend: { display: false },
+    tooltip: { enabled: false }
+  }
+}
+  });
+});
+
+
+
+
+function criarGrafico(id, cor = "orange") {
+  const ctx = document.getElementById(id).getContext("2d");
+  charts[id] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Uso',
+        data: [],
+        borderColor: cor,
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.4,
+        fill: false
+      }]
+    },
+    options: {
+      animation: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, display: false },
+        x: { display: false }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+
+
+function atualizarStatusSites() {
+  fetch("https://webpulse-backend-koaq.onrender.com/api/status_sites")
+    .then(res => res.json())
+    .then(statuses => {
+      Object.entries(statuses).forEach(([site, info]) => {
+        const chart = charts[site];
+        if (!chart) return;
+
+        const label = new Date().toLocaleTimeString().slice(0, 5);
+
+        if (chart.data.labels.length >= 10) {
+          chart.data.labels.shift();
+          chart.data.datasets[0].data.shift();
+        }
+        const latenciaEl = document.querySelector(`#chart-${site}`)?.closest('.website-card')?.querySelector('.latencia-info');
+        if (latenciaEl && info.latencia_ms !== undefined && info.latencia_ms >= 0) {
+            latenciaEl.textContent = `${info.latencia_ms} ms`;
+        } else if (latenciaEl) {
+          latenciaEl.textContent = '– ms';
+        }
+        chart.data.labels.push(label);
+        chart.data.datasets[0].data.push(info.tempo_ms);
+        chart.data.datasets[0].borderColor = info.cor;
+        chart.update();
+
+        const statusEl = document.querySelector(`#status-${site}`);
+        if (statusEl) {
+          statusEl.textContent = info.status;
+          statusEl.className = `status ${info.status.toLowerCase()}`;
+        }
+      });
+    });
+}
+
+setInterval(atualizarStatusSites, 5000);
+document.addEventListener("DOMContentLoaded", atualizarStatusSites);
+
+
+function normalizaTexto(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+
+function monitorLink() {
+  const url = document.getElementById("link-url").value.trim();
+  const loadingEl = document.getElementById("link-loading");
+  const resultadoEl = document.getElementById("link-status");
+  const analiseEl = document.getElementById("resultado-analise");
+  const avaliacaoFinalEl = document.getElementById("avaliacao-final");
+
+  if (!url) return;
+
+  loadingEl.classList.remove("hidden");
+  resultadoEl.classList.add("hidden");
+  analiseEl.innerHTML = "";
+  avaliacaoFinalEl.innerHTML = "";
+  avaliacaoFinalEl.className = "";
+
+  fetch("https://webpulse-backend-koaq.onrender.com/api/analisar_link", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ url })
+  })
+    .then(res => res.json())
+    .then(data => {
+      loadingEl.classList.add("hidden");
+      resultadoEl.classList.remove("hidden");
+
+      let nivelPerigo = 0;
+
+      const icones = {
+        "1. Protocolo": "✅",
+        "2. Certificado SSL": "🔒",
+        "3. Selos de Segurança": "🛡️",
+        "4. Reputação do Site": "🌐",
+        "5. Ameaças Possíveis": "🚫"
+      };
+
+      for (const item of data.itens) {
+  const div = document.createElement("div");
+  div.classList.add("item");
+  const statusClass = item.status || "suspeito";
+
+  div.innerHTML = `
+    <span class="status ${statusClass}">${item.titulo}: ${item.valor}</span>
+  `;
+  analiseEl.appendChild(div);
+
+  if (statusClass === "reprovado") nivelPerigo += 2;
+  else if (statusClass === "suspeito") nivelPerigo += 1;
+}
+
+      if (nivelPerigo === 0) {
+        avaliacaoFinalEl.textContent = "✅ Site considerado seguro para acesso";
+        avaliacaoFinalEl.classList.add("seguranca-boa");
+      } else if (nivelPerigo <= 2) {
+        avaliacaoFinalEl.textContent = "⚠️ Atenção(Suspeito): o site pode conter riscos ou recursos prejudiciais.";
+        avaliacaoFinalEl.classList.add("suspeito");
+      } else {
+        avaliacaoFinalEl.textContent = "❌ Este site é perigoso. Evite acessar ou compartilhar.";
+        avaliacaoFinalEl.classList.add("perigoso");
+      }
+    })
+    .catch(err => {
+      loadingEl.classList.add("hidden");
+      alert("Erro ao analisar link. Verifique o backend.");
+    });
+}
+
+function resetarLinkMonitor()
+
+{
+  
+  document.getElementById("link-url").value = "";
+  document.getElementById("link-status").classList.add("hidden");
+  document.getElementById("link-loading").classList.add("hidden");
+  document.getElementById("resultado-analise").innerHTML = "";
+  document.getElementById("avaliacao-final").innerHTML = "";
+  document.getElementById("avaliacao-final").className = "";
+}
+            
+document.getElementById("link-url").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // evita o comportamento padrão do Enter
+      monitorLink();
+    }
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".website-card canvas").forEach(canvas => {
+
+  });
+  setInterval(() => {
+    atualizarStatusSites();
+  }, 10000);
+
+  // Alternância de tema com ícone
+const themeBtn = document.getElementById("toggle-theme");
+// Restaurar tema salvo
+if (localStorage.getItem("tema") === "dark") {
+  document.body.classList.add("dark-theme");
+  themeBtn.textContent = "☀️";
+} else {
+  themeBtn.textContent = "🌙";
+}
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
+  const dark = document.body.classList.contains("dark-theme");
+
+  localStorage.setItem("tema", dark ? "dark" : "light");
+  themeBtn.textContent = dark ? "☀️" : "🌙";
+});
+
+  function normalizaTexto(texto) {
+    return texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, '')
+      .toLowerCase();
+  }
+
+  document.querySelector('a[href="#noticias"]').addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Oculta todas as seções
+  document.querySelector("main").style.display = "none";
+  document.querySelector(".link-monitor").style.display = "none";
+  document.getElementById("status-rede").classList.add("hidden"); // ⬅ oculta o dashboard
+  document.getElementById("noticias-section").classList.remove("hidden");
+
+  carregarNoticias();
+});
+
+function carregarNoticias() {
+  const noticias = [
+    {
+      titulo: "WhatsApp registra instabilidade global",
+      imagem: "https://via.placeholder.com/300x150?text=WhatsApp",
+      resumo: "Usuários relatam falhas no envio de mensagens nesta segunda-feira.",
+      link: "#"
+    },
+    {
+      titulo: "Mercado de TI cresce 12% no Brasil",
+      imagem: "https://via.placeholder.com/300x150?text=TI+Mercado",
+      resumo: "Estudo aponta crescimento impulsionado pela demanda por segurança cibernética.",
+      link: "#"
+    },
+    {
+      titulo: "Falha em roteadores afeta operadoras",
+      imagem: "https://via.placeholder.com/300x150?text=Roteadores",
+      resumo: "Atualização automática causou queda parcial em serviços de internet.",
+      link: "#"
+    }
+    // adicione até 15 notícias simuladas aqui
+  ];
+
+  const container = document.getElementById("noticias-container");
+  container.innerHTML = "";
+  noticias.forEach(n => {
+    const card = document.createElement("div");
+    card.className = "noticia-card";
+    card.innerHTML = `
+      <img src="${n.imagem}" alt="${n.titulo}">
+      <h4>${n.titulo}</h4>
+      <p>${n.resumo}</p>
+    `;
+    container.appendChild(card);
+  });
+}
+
+
+  const dicas = {
+    resistencia: ["Backup é essencial para resiliência digital.", "Sua segurança é inegociável. Nossa defesa, inabalável."],
+    seguranca: ["Use senhas fortes com 2FA.", "Atualize o antivírus com frequência."],
+    inseguranca: ["Evite sites sem HTTPS.", "Desconfie de domínios estranhos."],
+    status: ["Monitore DNS e Ping em tempo real.", "Status atualizado garante ação rápida."],
+    warmate: ["Projeto criado por Igor para monitoramento interno.", "WebPulse mantém sua rede em alerta."]
+  };
+
+  const keyMap = {
+    "resistência": "resistencia",
+    "segurança": "seguranca",
+    "insegurança": "inseguranca",
+    "status rápido": "status",
+    "warmate": "warmate"
+  };
+
+  // Atualiza rodapé
+  document.querySelectorAll(".footer-card").forEach(card => {
+    const strong = card.querySelector("strong");
+    const keyOriginal = strong.textContent.trim().toLowerCase();
+    const keyNormalizado = keyMap[keyOriginal] || normalizaTexto(keyOriginal);
+    const dicaArray = dicas[keyNormalizado];
+    const p = card.querySelector("p");
+    if (dicaArray && p) {
+      const dicaSorteada = dicaArray[Math.floor(Math.random() * dicaArray.length)];
+      p.innerHTML = `<strong>${strong.textContent}</strong> ${dicaSorteada}`;
+    }
+  });
+});
+
+document.querySelector('a[href="#noticias"]').addEventListener("click", (e) => {
+  e.preventDefault();
+  document.querySelector("main").style.display = "none";
+  document.querySelector(".link-monitor").style.display = "none";
+  document.getElementById("noticias-section").classList.remove("hidden");
+  carregarNoticias();
+});
+
+function voltarPaginaInicial() {
+  document.getElementById("noticias-section").classList.add("hidden");
+  document.querySelector("main").style.display = "";
+  document.querySelector(".link-monitor").style.display = "";
+}
+
+function carregarNoticias() {
+  fetch("https://webpulse-backend-koaq.onrender.com")
+    .then(res => res.json())
+    .then(dados => {
+      const container = document.getElementById("noticias-container");
+      container.innerHTML = "";
+      dados.forEach(n => {
+        const div = document.createElement("div");
+        div.className = "noticia-card";
+        div.innerHTML = `
+          <img src="${n.imagem}" alt="imagem da notícia">
+          <h4>${n.titulo}</h4>
+          <p>${n.resumo}</p>
+          <a href="${n.link}" target="_blank">Leia mais</a>
+        `;
+        container.appendChild(div);
+      });
+    });
+}
+
+document.querySelector('a[href="#status-rede"]').addEventListener("click", (e) => {
+  e.preventDefault();
+
+  document.querySelector("main").style.display = "none";
+  document.querySelector(".link-monitor").style.display = "none";
+  document.getElementById("noticias-section")?.classList.add("hidden");
+  document.getElementById("status-rede").classList.remove("hidden");
+
+  carregarDashboard();
+});
+
+function voltarPaginaInicial() {
+  ocultarTodasAsSecoes(); // <-- adiciona isso
+  document.querySelector("main").style.display = "";
+  document.querySelector(".link-monitor").style.display = "";
+}
+
+
+function carregarDashboard() {
+  fetch("https://webpulse-backend-koaq.onrender.com")
+    .then(res => res.json())
+    .then(data => {
+      const ctx = document.getElementById("grafico-uptime").getContext("2d");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: data.labels,
+          datasets: [{
+            label: "Uptime (%)",
+            data: data.uptime,
+            backgroundColor: "#2ecc71"
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { min: 0, max: 100 }
+          }
+        }
+      });
+
+      const lista = document.getElementById("alertas-recentes");
+      lista.innerHTML = "";
+      data.alertas.forEach(alerta => {
+        const li = document.createElement("li");
+        li.textContent = `${alerta.site} - ${alerta.tipo} (${alerta.hora})`;
+        lista.appendChild(li);
+      });
+    });
+}
+
+function carregarHeatmap() {
+  fetch("https://webpulse-backend-koaq.onrender.com")
+    .then(res => res.json())
+    .then(data => {
+      const categoriaSelecionada = document.getElementById("filtro-categoria")?.value || "";
+      const statusSelecionado = document.getElementById("filtro-status")?.value || "";
+
+      const container = document.getElementById("heatmap-container");
+      container.innerHTML = "";
+
+      for (const site in data) {
+        // Aqui você pode definir as categorias direto no JS, ou virem do backend depois
+        const categorias = {
+          "whatsapp": "Redes Sociais",
+          "facebook": "Redes Sociais",
+          "instagram": "Redes Sociais",
+          "youtube": "Streaming",
+          "google": "Busca",
+          "itau": "Bancos",
+          "caixa": "Bancos",
+          "gov": "Governamentais",
+          "correios": "Governamentais",
+          "vivo": "Provedores",
+          "claro": "Provedores",
+          "tim": "Provedores",
+          "picpay": "Bancos",
+          "bradesco": "Bancos",
+          "santander": "Bancos",
+          "nubank": "Bancos",
+          "mercadolivre": "E-commerce",
+          "bancodobrasil": "Bancos"
+        };
+
+        const categoria = categorias[site] || "Outros";
+        if (categoriaSelecionada && categoria !== categoriaSelecionada) continue;
+
+        const ultimos = data[site];
+        if (statusSelecionado && !ultimos.some(r => r.status === statusSelecionado)) continue;
+
+        const card = document.createElement("div");
+        card.className = "heatmap-card";
+
+        const nome = document.createElement("div");
+        nome.className = "site-nome";
+        nome.textContent = site;
+
+        const blocos = document.createElement("div");
+        blocos.className = "heatmap-blocos";
+
+        ultimos.forEach(r => {
+          const bloco = document.createElement("div");
+          bloco.className = `block ${r.status || 'vazio'}`;
+          bloco.title = `${r.hora} - ${r.status}`;
+          blocos.appendChild(bloco);
+        });
+
+        card.appendChild(nome);
+        card.appendChild(blocos);
+        container.appendChild(card);
+      }
+    });
+  }
+  function filtrarHeatmap() {
+  carregarHeatmap();
+}
+
+
+
+document.querySelector('a[href="#status-rede"]').addEventListener("click", (e) => {
+  e.preventDefault();
+  ocultarTodasAsSecoes(); // <-- adiciona isso
+  document.getElementById("status-rede").classList.remove("hidden");
+
+  // Filtros e dados
+  document.getElementById("filtro-categoria").value = "";
+  document.getElementById("filtro-status").value = "";
+  filtrarHeatmap();
+});
+
+
+document.querySelector('a[href="#sobre"]').addEventListener("click", (e) => {
+  e.preventDefault();
+  ocultarTodasAsSecoes(); // <-- adiciona isso
+  document.getElementById("sobre-nos").classList.remove("hidden");
+});
+
+document.querySelector('a[href="#analise-email"]').addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Oculta todas as seções
+  ocultarTodasAsSecoes();
+
+  // Exibe apenas a seção de análise de e-mails
+  document.getElementById("analise-email").classList.remove("hidden");
+});
+
+function mostrarPaginaInicial() {
+    document.getElementById("pagina-inicial").style.display = "block";
+    document.getElementById("status-rede").style.display = "none";
+    document.getElementById("noticias-section").style.display = "none";
+    document.getElementById("configuracoes").style.display = "none";
+    document.getElementById("ajuda").style.display = "none";
+    document.getElementById("sobre-nos").style.display = "none";  // ✅ IMPORTANTE
+  }
+
+  function mostrarSobreNos() {
+    document.getElementById("pagina-inicial").style.display = "none";
+    document.getElementById("status-rede").style.display = "none";
+    document.getElementById("noticias-section").style.display = "none";
+    document.getElementById("configuracoes").style.display = "none";
+    document.getElementById("ajuda").style.display = "none";
+    document.getElementById("sobre-nos").style.display = "block";  // ✅ MOSTRA
+  }
+  function ocultarTodasAsSecoes() {
+  document.querySelector("main").style.display = "none";
+  document.querySelector(".link-monitor").style.display = "none";
+  document.getElementById("status-rede")?.classList.add("hidden");
+  document.getElementById("noticias-section")?.classList.add("hidden");
+  document.getElementById("sobre-nos")?.classList.add("hidden");
+  document.getElementById("analise-email")?.classList.add("hidden"); // <-- ID correto!
+}
+document.querySelector('a[href="#noticias"]').addEventListener("click", (e) => {
+  e.preventDefault();
+  ocultarTodasAsSecoes();
+  document.getElementById("noticias-section").classList.remove("hidden");
+  carregarNoticias();
+});
+
+
+function analisarEmail() {
+  const remetente = document.getElementById("remetente-email").value.trim();
+  const conteudo = document.getElementById("conteudo-email").value.trim();
+  const loadingEl = document.getElementById("loading-email");
+  const resultadoEl = document.getElementById("resultado-email");
+  const itensEl = document.getElementById("resultado-itens-email");
+  const resumoEl = document.getElementById("resumo-email");
+
+  if (!remetente && !conteudo) return alert("Preencha o conteúdo ou o remetente.");
+
+  loadingEl.classList.remove("hidden");
+  resultadoEl.classList.add("hidden");
+  itensEl.innerHTML = "";
+  resumoEl.innerHTML = "";
+
+  fetch("https://webpulse-backend-koaq.onrender.com/api/analisar_email", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ remetente, conteudo })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Resposta recebida:", data); //Ajuda a rastrear o que está vindo
+      loadingEl.classList.add("hidden");
+      resultadoEl.classList.remove("hidden");
+
+      const icones = {
+        aprovado: "✅",
+        suspeito: "⚠️",
+        reprovado: "❌"
+      };
+
+      data.itens.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("item");
+        div.innerHTML = `
+          <span class="status ${item.status}">
+            ${icones[item.status] || "📄"} <strong>${item.titulo}:</strong> ${item.valor}
+          </span>
+        `;
+        itensEl.appendChild(div);
+      });
+
+      const statusFinal = {
+  seguro: "✅ E-mail considerado seguro",
+  suspeito: "⚠️ Atenção: risco moderado detectado",
+  perigoso: "❌ Alto risco – Evite abrir ou baixar anexos"
+};
+
+let statusClass = "";
+if (data.status === "aprovado") statusClass = "seguranca-boa";
+else if (data.status === "suspeito") statusClass = "suspeito";
+else if (data.status === "reprovado") statusClass = "perigoso";
+
+resumo.innerHTML = `
+  <div id="avaliacao-final" class="${statusClass}">
+    Status: ${data.status.toUpperCase()}<br>
+    Detalhes: ${data.mensagem}
+  </div>
+`;
+resumoEl.className = `resumo-final ${data.status}`;
+      resumoEl.className = `resumo-final ${data.status}`;
+    })
+    .catch(err => {
+  loadingEl.classList.add("hidden");
+  console.error("Erro durante análise:", err);
+
+  // Verifica se erro foi de rede ou estrutura JSON
+  if (err.message.includes("Erro") || err instanceof TypeError) {
+    alert("Erro ao analisar e-mail. Verifique o backend.");
+  }
+});
+}
+
+function limparAnaliseEmail() {
+  document.getElementById("remetente-email").value = "";
+  document.getElementById("conteudo-email").value = "";
+  document.getElementById("resultado-email").classList.add("hidden");
+  document.getElementById("resultado-itens-email").innerHTML = "";
+  document.getElementById("resumo-email").innerHTML = "";
+}
+
+
+
+</script>
+</body>
+</html>
