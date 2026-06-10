@@ -299,7 +299,7 @@
 </div>
 <div class="website-card" data-url="https://bcb.gov.br/">
   <div class="favicon">
-    <img src="https://www.google.com/s2/favicons?domain=bcb.gov.br&sz=16" alt="Ícone BCB">  
+    <img src="https://www.google.com/s2/favicons?domain=bcb.gov.br&sz=16" alt="BCB">  
   </div>
   <div class="details">
   <h3>Banco Central do Brasil</h3>
@@ -436,7 +436,7 @@
   <div id="noticias-container" class="noticias-grid"></div>
 </section>
 
-<section id="sobre-nos" class="hidden">
+<section id="sobre" class="hidden">
   <section class="sobre-hero centralizado">
     <div class="container-hero">
       <video autoplay loop muted playsinline width="80" height="80" style="border-radius: 12px;">
@@ -445,11 +445,12 @@
       </video>
       <h2>WebPulse: monitoramento confiável, em tempo real</h2>
       <p>
-        O <strong>WebPulse</strong> é seu radar digital. Quando um site não carrega, mostramos se o problema está com ele   ou com a sua conexão.<br>
+        O <strong>WebPulse</strong> é seu radar digital. Quando um site não carrega, mostramos se o problema está com ele ou com a sua conexão.<br>
         Monitoramos os principais serviços da internet 24/7, com <strong>gráficos em tempo real</strong>, <strong>análises técnicas</strong> e <strong>alertas inteligentes</strong> para decisões rápidas e assertivas.
       </p>
     </div>
   </section>
+</section> ```
 
   <section class="sobre-funcionamento">
     <h3><i class="fa-solid fa-sitemap"></i> Como Funciona</h3>
@@ -1176,6 +1177,18 @@ document.addEventListener('error', function(e) {
         if (url.includes('via.placeholder.com') || url.includes('300x150')) {
             e.target.src = 'https://placehold.co/300x150?text=WebPulse';
         } else if (url.includes('bcb.gov.br')) {
+            e.target.src = 'https://www.google.com/s2/favicons?domain=bcb.gov.br&sz=16';
+        }
+    }
+}, true);
+
+document.addEventListener('error', function(e) {
+    if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+        const url = e.target.src;
+        if (url.includes('placeholder.com') || url.includes('300x150')) {
+            e.target.src = 'https://placehold.co/300x150?text=WebPulse';
+        }
+        if (url.includes('bcb.gov.br') || url.includes('gstatic.com')) {
             e.target.src = 'https://www.google.com/s2/favicons?domain=bcb.gov.br&sz=16';
         }
     }
